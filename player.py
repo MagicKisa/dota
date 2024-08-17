@@ -1,21 +1,14 @@
-from utils import call_hero_info
+from utils import call_player_heroes, call_player_rank
 
-class HeroInfo:
-    def __init__(self, name, matches=0, winrate=0, kda=0):
-        self.name = name
-        self.matches = matches
-        self.winrate = winrate
-        self.kda = kda
 
 class Player:
-    def __init__(self, name, link, rank=None, heroes_info=[]):
+    def __init__(self, name, link):
         self.name = name
         self.link = link
-        self.rank = rank
-        self.heroes_info = heroes_info
+        self.rank = call_player_rank(link)
+        self.heroes_info = call_player_heroes(link)
 
-    def get_hero_info(self, hero_name, profile="esports"):
-        player_link = self.link
-        hero_info = call_hero_info(player_link, hero_name, profile)
+    def get_hero_info(self, hero_name):
+        hero_info = self.heroes_info[hero_name]
 
         return hero_info
